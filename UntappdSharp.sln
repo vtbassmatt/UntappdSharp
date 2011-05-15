@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UntappdSharpLib", "UntappdSharpLib\UntappdSharpLib.csproj", "{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicRest", "DynamicRest\DynamicRest.csproj", "{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtConsole", "UtConsole\UtConsole.csproj", "{35738473-F63C-43AE-ADE8-41122DDF9774}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35738473-F63C-43AE-ADE8-41122DDF9774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35738473-F63C-43AE-ADE8-41122DDF9774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35738473-F63C-43AE-ADE8-41122DDF9774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35738473-F63C-43AE-ADE8-41122DDF9774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = UtConsole\UtConsole.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.FileWidth = 120
+		$2.RemoveTrailingWhitespace = True
+		$2.inheritsSet = VisualStudio
+		$2.inheritsScope = text/plain
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.IndentSwitchBody = True
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabWidth = 4
+		$4.inheritsSet = Mono
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
+		$0.StandardHeader = $5
+		$5.inheritsSet = NewBSDLicense
+	EndGlobalSection
+EndGlobal

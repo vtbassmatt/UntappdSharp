@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C41EEE3B-44AE-46C4-840A-4DDE9C0CEA5A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UntappdSharp</RootNamespace>
+    <AssemblyName>UntappdSharpLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Dynamic" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="IUntappd.cs" />
+    <Compile Include="UtObjects\UtUser.cs" />
+    <Compile Include="EnvironmentDetails.cs" />
+    <Compile Include="Untappd.cs" />
+    <Compile Include="UtObjects\UtUserFeed.cs" />
+    <Compile Include="UtObjects\UtUserFeedItem.cs" />
+    <Compile Include="Coerce.cs" />
+    <Compile Include="UtObjects\UtBeer.cs" />
+    <Compile Include="UtObjects\UtBrewery.cs" />
+    <Compile Include="UtObjects\UtTopBeer.cs" />
+    <Compile Include="UtObjects\UtFriends.cs" />
+    <Compile Include="CheckinOptions.cs" />
+    <Compile Include="UtObjects\UtCheckin.cs" />
+    <Compile Include="UtObjects\UtCheckinDetails.cs" />
+    <Compile Include="UtObjects\UtCheckinTotal.cs" />
+    <Compile Include="UtObjects\UtCheckinUserDetails.cs" />
+    <Compile Include="UtObjects\UtPromotion.cs" />
+    <Compile Include="UtObjects\UtCheckinBeerDetails.cs" />
+    <Compile Include="UtObjects\UtBadge.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="UtObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicRest\DynamicRest.csproj">
+      <Project>{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}</Project>
+      <Name>DynamicRest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="About.txt" />
+    <None Include="license.txt" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <StandardHeader Text="&#xA;UntappdSharp is a .Net 4.0 library for calling the Untappd API&#xA;The latest information and code for the project can be found at&#xA;https://github.com/vtbassmatt/UntappdSharp&#xA;&#xA;This project is licensed under the BSD license. See the License.txt file for&#xA;more information." inheritsSet="Apache2License" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,12 @@
+Credits:
+
+UntappdSharp
+  Copyright (c) 2011, Matt Cooper
+  See UntappdSharpLib/license.txt for details.
+
+DynamicRest library
+  Copyright (c) 2008 - 2011, Nikhil Kothari
+  See DynamicRest/license.txt for details.
+  Additions in RestClient.cs by Matt Cooper to support:
+  - Untappd's non-standard auth mechanism
+  - POST instead of GET
