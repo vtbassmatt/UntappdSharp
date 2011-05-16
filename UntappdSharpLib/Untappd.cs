@@ -17,14 +17,24 @@ namespace UntappdSharp
     {
         private dynamic _Client;
 
-        public Untappd ()
+        public Untappd () : this(null)
+        {
+        }
+
+        public Untappd (string ApiKey = null)
         {
             List<string> PostOps = new List<string>()
             {
                 "checkin_test",
             };
             _Client = new RestClient(EnvironmentDetails.EndpointFormat, RestService.Json, PostOps);
-            _Client.apiKey = EnvironmentDetails.ApiKey;
+
+            if(null == ApiKey)
+            {
+                _Client.apiKey = EnvironmentDetails.ApiKey;
+            } else {
+                _Client.apiKey = ApiKey;
+            }
         }
 
         #region IUntappd implementation

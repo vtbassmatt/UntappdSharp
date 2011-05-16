@@ -1,5 +1,18 @@
 This is a .Net library for interacting with the Untappd API.
 
+In order to use the enclosed console test app, you need to place a file in the project root called "secrets.txt".  A post-build action moves this file next to the binary.  The file must contain 3 lines:
+
+apikey|<your Untappd API key>
+username|<username of the Untappd user you're logging in as>
+password|<password of the Untappd user you're logging in as>
+
+Example:
+apikey|c0ffeec0dec5deadbeefb05535decade0
+username|mycoolusername
+password|myawesomep4ssword
+
+-=-=-=-=-=-=-=-=-=-=-=-
+
 Credits:
 
 UntappdSharp

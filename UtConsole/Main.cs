@@ -27,6 +27,8 @@
 // 
 using System;
 using System.Net;
+using System.IO;
+using System.Collections.Generic;
 using UntappdSharp;
 
 namespace UtConsole
@@ -37,8 +39,12 @@ namespace UtConsole
         {
             Console.WriteLine ("Hello World!");
 
-            Untappd u = new Untappd();
-            u.SetCredentials("****", "****");
+            string apiKey = LoadSecret("apikey"),
+                   username = LoadSecret("username"),
+                   password = LoadSecret("password");
+
+            Untappd u = new Untappd(apiKey);
+            u.SetCredentials(username, password);
 
             //UtUser vtbassmatt = u.User("vtbassmatt");
             //Console.WriteLine(vtbassmatt.Uid + " : " + vtbassmatt.UserName);
@@ -46,8 +52,8 @@ namespace UtConsole
             //UtUser suewho = u.User("suewho");
             //Console.WriteLine(suewho.Uid + " : " + suewho.UserName);
 
-            //UtUser me = u.User();
-            //Console.WriteLine("I am " + me.UserName);
+            UtUser me = u.User();
+            Console.WriteLine("I am " + me.UserName);
 
             //UtUser blah = u.User("1");
             //Console.WriteLine(blah.FirstName);
@@ -55,8 +61,8 @@ namespace UtConsole
             //UtUserFeed feed = u.UserFeed();
             //Console.WriteLine("checkin " + feed.Feed[0].CheckinId + " by " + feed.Feed[0].User.Uid);
 
-            UtBeer beer = u.BeerInfo(1);
-            Console.WriteLine(beer.Name);
+            //UtBeer beer = u.BeerInfo(1);
+            //Console.WriteLine(beer.Name);
 
             //UtBrewery brewery = u.BreweryInfo(1);
             //Console.WriteLine(brewery.Name);
@@ -78,6 +84,26 @@ namespace UtConsole
             Console.WriteLine(checkin.Recommendations[0].Name);
 
             Console.Read();
+        }
+
+        private static Dictionary<string,string> _Secrets;
+        private static string LoadSecret(string Index)
+        {
+            if(null == _Secrets)
+            {
+                _Secrets = new Dictionary<string, string>();
+                string text = File.ReadAllText("secrets.txt");
+                foreach(string line in text.Split('\n'))
+                {
+                    string[] items = line.Split(new char[] {'|'}, 2);
+                    if(2 == items.Length)
+                    {
+                        _Secrets.Add(items[0], items[1]);
+                    }
+                }
+            }
+
+            return _Secrets[Index];
         }
     }
 }

@@ -1,3 +1,7 @@
+# Keep our secrets secret! #
+############################
+secrets.txt
+
 # Compiled source #
 ###################
 *.dll
