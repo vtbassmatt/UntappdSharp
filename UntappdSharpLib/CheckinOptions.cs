@@ -16,7 +16,10 @@ namespace UntappdSharp
         public string FoursquareId { get; set; }
         public decimal? UserLat { get; set; }
         public decimal? UserLng { get; set; }
+    }
 
+    public class ExtendedCheckinOptions : CheckinOptions
+    {
         // Allowed in Checkin
         public string Shout { get; set; }
         public int RatingValue { get; set; }

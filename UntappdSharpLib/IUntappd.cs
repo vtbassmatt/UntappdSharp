@@ -29,7 +29,7 @@ namespace UntappdSharp
         UtFriends Friends(string Username = null, int? Offset = null);
 
         // Check in
-        /*UtCheckin Checkin(CheckinOptions Options);*/
+        UtCheckin Checkin(CheckinOptions Options);
         UtCheckin CheckinTest(CheckinOptions Options);
     }
 }

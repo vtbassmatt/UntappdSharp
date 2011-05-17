@@ -23,6 +23,7 @@
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp ${ProjectDir}/secrets.txt ${TargetDir}/secrets.txt" />
+        <Command type="Clean" command="rm -f ${TargetDir}/secrets.txt" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

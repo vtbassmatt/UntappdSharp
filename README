@@ -55,7 +55,7 @@ Methods without a marker may or may not be implemented.
  Trending
  
 @Checkin (Test)
-+Checkin
+@Checkin
 +Add Comment
 +Remove Comment
 +Toast

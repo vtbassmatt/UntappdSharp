@@ -61,8 +61,8 @@ namespace UtConsole
             //UtUserFeed feed = u.UserFeed();
             //Console.WriteLine("checkin " + feed.Feed[0].CheckinId + " by " + feed.Feed[0].User.Uid);
 
-            //UtBeer beer = u.BeerInfo(1);
-            //Console.WriteLine(beer.Name);
+            UtBeer beer = u.BeerInfo(1);
+            Console.WriteLine(beer.Name);
 
             //UtBrewery brewery = u.BreweryInfo(1);
             //Console.WriteLine(brewery.Name);
@@ -82,6 +82,19 @@ namespace UtConsole
             UtCheckin checkin = u.CheckinTest(opt);
             Console.WriteLine(checkin.CheckinTotal.Beer);
             Console.WriteLine(checkin.Recommendations[0].Name);
+
+            // *******************************
+            // REAL CHECKIN - EXERCISE CAUTION
+            // *******************************
+            //CheckinOptions opt = new CheckinOptions()
+            //{
+            //    Timezone = TimeZoneInfo.Local,
+            //    BeerId = 6987,
+            //};
+            //UtCheckin checkin = u.Checkin(opt);
+            //Console.WriteLine(checkin.CheckinTotal.Beer);
+            //Console.WriteLine(checkin.Recommendations[0].Name);
+
 
             Console.Read();
         }

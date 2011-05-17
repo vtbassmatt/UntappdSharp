@@ -26,6 +26,7 @@ namespace UntappdSharp
             List<string> PostOps = new List<string>()
             {
                 "checkin_test",
+                "checkin",
             };
             _Client = new RestClient(EnvironmentDetails.EndpointFormat, RestService.Json, PostOps);
 
@@ -118,7 +119,17 @@ namespace UntappdSharp
             return null;
         }
 
+        public UtCheckin Checkin(CheckinOptions Options)
+        {
+            return CheckinInternal(Options, true);
+        }
+
         public UtCheckin CheckinTest(CheckinOptions Options)
+        {
+            return CheckinInternal(Options, false);
+        }
+
+        private UtCheckin CheckinInternal(CheckinOptions Options, bool IsRealCheckin)
         {
             // CheckinOptions allow for CheckinTest:
             // gmt_offset    : required
@@ -134,7 +145,13 @@ namespace UntappdSharp
             args.user_lat = Options.UserLat;
             args.user_lng = Options.UserLng;
 
-            dynamic response = _Client.checkin_test(args);
+            dynamic response;
+            if(IsRealCheckin)
+            {
+                response = _Client.checkin(args);
+            } else {
+                response = _Client.checkin_test(args);
+            }
             if(null != response.Result)
             {
                 return UtCheckin.FromDynamic(response.Result);
