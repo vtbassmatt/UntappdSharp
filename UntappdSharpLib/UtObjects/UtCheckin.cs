@@ -6,6 +6,7 @@
 // This project is licensed under the BSD license. See the License.txt file for
 // more information.
 using System;
+using Microsoft.CSharp.RuntimeBinder;
 namespace UntappdSharp
 {
     public class UtCheckin
@@ -50,10 +51,17 @@ namespace UntappdSharp
                 IsTooFarAway = Coerce.ToBool(From.is_too_far_away),
 
                 // TODO: figure out what these really return and deal with them
-                Foursquare = From.foursquare,
                 FoursquareDetails = From.foursquare_details,
                 HereNow = From.here_now,
             };
+
+            // checkins which include Foursquare data return differently than checkins which don't
+            try
+            {
+                checkin.Foursquare = From.foursquare_result;
+            } catch(RuntimeBinderException) {
+                checkin.Foursquare = From.foursquare;
+            }
 
             // checkin_test has a known bug: `badges` can be an object
             // rather than an array of objects
