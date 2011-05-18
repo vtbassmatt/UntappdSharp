@@ -159,6 +159,22 @@ namespace UntappdSharp
 
             return null;
         }
+
+        public UtBeerSearch BeerSearch(string Q, bool SortByCount = false, int? Offset = null)
+        {
+            dynamic args = new JsonObject();
+            args.q = Q;
+            if(SortByCount) { args.sort = "count"; }
+            if(null != Offset) { args.offset = Offset; }
+
+            dynamic response = _Client.beer_search(args);
+            if(null != response.Result.results)
+            {
+                return UtBeerSearch.FromDynamic(response.Result);
+            }
+
+            return null;
+        }
         #endregion
 
         #region Helpers: MD5, timezone stuff

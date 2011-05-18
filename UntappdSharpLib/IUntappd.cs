@@ -20,6 +20,7 @@ namespace UntappdSharp
         UtUserFeed UserFeed(string Username = null, int? Since = null, int? Offset =  null);
 
         // Beer info
+        UtBeerSearch BeerSearch(string Q, bool SortByCount = false, int? Offset = null);
         UtBeer BeerInfo(int BeerId);
 
         // Brewery info

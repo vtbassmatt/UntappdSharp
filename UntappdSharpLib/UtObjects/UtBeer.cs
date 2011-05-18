@@ -21,6 +21,11 @@ namespace UntappdSharp
             throw new NotImplementedException();
         }
 
+        public UtBeer(UtBeerSearchBeer BeerSearchBeer)
+        {
+            throw new NotImplementedException();
+        }
+
         public static UtBeer FromDynamic(dynamic Beer)
         {
             // we always get these beer fields
