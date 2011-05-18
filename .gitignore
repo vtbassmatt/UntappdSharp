@@ -12,6 +12,7 @@ secrets.txt
 *.pidb
 *.mdb
 bin/*
+*/test-results/*
 
 # Environmental junk #
 ######################

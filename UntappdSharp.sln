@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicRest", "DynamicRest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtConsole", "UtConsole\UtConsole.csproj", "{35738473-F63C-43AE-ADE8-41122DDF9774}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{4BA401E0-B7E7-4DD7-AFB1-08A5F0690536}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{35738473-F63C-43AE-ADE8-41122DDF9774}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35738473-F63C-43AE-ADE8-41122DDF9774}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35738473-F63C-43AE-ADE8-41122DDF9774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA401E0-B7E7-4DD7-AFB1-08A5F0690536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA401E0-B7E7-4DD7-AFB1-08A5F0690536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA401E0-B7E7-4DD7-AFB1-08A5F0690536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA401E0-B7E7-4DD7-AFB1-08A5F0690536}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6761F94D-EFCD-49C7-9E8E-ECBCA014FF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +56,7 @@ Global
 		$4.inheritsScope = text/plain
 		$4.scope = text/plain
 		$0.StandardHeader = $5
-		$5.inheritsSet = NewBSDLicense
+		$5.Text = @\n Author:\n   ${AuthorName} ${AuthorEmail}\n\n Copyright (c) ${Year}, ${CopyrightHolder}\n\n All rights reserved.\n\n Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in\n      the documentation and/or other materials provided with the distribution.\n    * Neither the name of the [ORGANIZATION] nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\n THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\n PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\n LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\n NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
+		$5.IncludeInNewFiles = True
 	EndGlobalSection
 EndGlobal
