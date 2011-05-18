@@ -18,12 +18,23 @@ namespace UntappdSharp
 
         public UtBeer(UtCheckinBeerDetails CheckinBeer)
         {
-            throw new NotImplementedException();
+            Name = CheckinBeer.BeerName;
+            BeerId = CheckinBeer.BeerId;
+            Brewery = CheckinBeer.BreweryName;
+            BreweryId = CheckinBeer.BreweryId;
+            Img = CheckinBeer.Img;
+            BeerCreatorId = CheckinBeer.BeerCreator;
+            Type = CheckinBeer.TypeName;
         }
 
         public UtBeer(UtBeerSearchBeer BeerSearchBeer)
         {
-            throw new NotImplementedException();
+            Name = BeerSearchBeer.BeerName;
+            BeerId = BeerSearchBeer.BeerId;
+            Brewery = BeerSearchBeer.BreweryName;
+            BreweryId = BeerSearchBeer.BreweryId;
+            YourCount = BeerSearchBeer.YourCount;
+            TotalCount = BeerSearchBeer.TotalCount;
         }
 
         public static UtBeer FromDynamic(dynamic Beer)
