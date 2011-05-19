@@ -27,14 +27,6 @@ namespace UntappdSharp
                 FoursquareDetails = UtCheckinFoursquareDetails.FromDynamic(From.foursquare_details),
             };
 
-            // checkins which include Foursquare data return differently than checkins which don't
-            try
-            {
-                checkin.Foursquare = From.foursquare_result;
-            } catch(RuntimeBinderException) {
-                checkin.Foursquare = From.foursquare;
-            }
-
             checkin.HereNow = new UtHereNow[From.here_now.Length];
             for(int i = 0; i < checkin.HereNow.Length; i++)
             {
@@ -71,7 +63,6 @@ namespace UntappdSharp
             return checkin;
         }
 
-        public dynamic Foursquare { get; internal set; }
         public UtCheckinTotal CheckinTotal { get; internal set; }
         public UtBadge[] Badges { get; internal set; }
         public UtCheckinFoursquareDetails FoursquareDetails { get; internal set; }
