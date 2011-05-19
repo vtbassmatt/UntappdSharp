@@ -8,11 +8,21 @@
 using System;
 namespace UntappdSharp
 {
-    public struct UtCheckinDetails
+    public class UtCheckinDetails
     {
-        public int CheckinId;
-        public string Shout;
-        public Uri CheckinLink;
+        public static UtCheckinDetails FromDynamic(dynamic From)
+        {
+            return new UtCheckinDetails()
+            {
+                CheckinId = Coerce.ToInt(From.checkin_id),
+                Shout = From.shout,
+                CheckinLink = Coerce.ToUri(From.checkin_link),
+            };
+        }
+
+        public int CheckinId { get; internal set; }
+        public string Shout { get; internal set; }
+        public Uri CheckinLink { get; internal set; }
     }
 }
 

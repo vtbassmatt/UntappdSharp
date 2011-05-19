@@ -8,12 +8,23 @@
 using System;
 namespace UntappdSharp
 {
-    public struct UtCheckinUserDetails
+    public class UtCheckinUserDetails
     {
-        public string Username;
-        public string Name;
-        public int Id;
-        public Uri Img;
+        public static UtCheckinUserDetails FromDynamic(dynamic From)
+        {
+            return new UtCheckinUserDetails()
+            {
+                Username = From.username,
+                Name = From.name,
+                Id = Coerce.ToInt(From.id),
+                Img = Coerce.ToUri(From.img),
+            };
+        }
+
+        public string Username { get; internal set; }
+        public string Name { get; internal set; }
+        public int Id { get; internal set; }
+        public Uri Img { get; internal set; }
     }
 }
 

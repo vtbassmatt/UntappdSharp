@@ -19,39 +19,14 @@ namespace UntappdSharp
         {
             var checkin = new UtCheckin()
             {
-                CheckinTotal = new UtCheckinTotal()
-                {
-                    Beer = From.checkin_total.beer,
-                    BeerMonth = From.checkin_total.beer_month,
-                },
-                CheckinDetails = new UtCheckinDetails()
-                {
-                    CheckinId = Coerce.ToInt(From.checkin_details.checkin_id),
-                    Shout = From.checkin_details.shout,
-                    CheckinLink = Coerce.ToUri(From.checkin_details.checkin_link),
-                },
-                UserDetails = new UtCheckinUserDetails()
-                {
-                    Username = From.user_details.username,
-                    Name = From.user_details.name,
-                    Id = Coerce.ToInt(From.user_details.id),
-                    Img = Coerce.ToUri(From.user_details.img),
-                },
-                BeerDetails = new UtCheckinBeerDetails()
-                {
-                    BeerName = From.beer_details.beer_name,
-                    BeerId = Coerce.ToInt(From.beer_details.beer_id),
-                    BreweryName = From.beer_details.brewery_name,
-                    BreweryId = Coerce.ToInt(From.beer_details.brewery_id),
-                    Img = Coerce.ToUri(From.beer_details.img),
-                    BeerCreator = Coerce.ToInt(From.beer_details.beer_creator),
-                    TypeId = Coerce.ToInt(From.beer_details.type_id),
-                    TypeName = From.beer_details.type_name,
-                },
+                CheckinTotal = UtCheckinTotal.FromDynamic(From.checkin_total),
+                CheckinDetails = UtCheckinDetails.FromDynamic(From.checkin_details),
+                UserDetails = UtCheckinUserDetails.FromDynamic(From.user_details),
+                BeerDetails = UtCheckinBeerDetails.FromDynamic(From.beer_details),
                 IsTooFarAway = Coerce.ToBool(From.is_too_far_away),
+                FoursquareDetails = UtCheckinFoursquareDetails.FromDynamic(From.foursquare_details),
 
                 // TODO: figure out what these really return and deal with them
-                FoursquareDetails = From.foursquare_details,
                 HereNow = From.here_now,
             };
 
@@ -61,6 +36,12 @@ namespace UntappdSharp
                 checkin.Foursquare = From.foursquare_result;
             } catch(RuntimeBinderException) {
                 checkin.Foursquare = From.foursquare;
+            }
+
+            checkin.HereNow = new UtHereNow[From.here_now.Length];
+            for(int i = 0; i < checkin.HereNow.Length; i++)
+            {
+                checkin.HereNow[i] = UtHereNow.FromDynamic(From.here_now[i]);
             }
 
             // checkin_test has a known bug: `badges` can be an object
@@ -96,8 +77,8 @@ namespace UntappdSharp
         public dynamic Foursquare { get; internal set; }
         public UtCheckinTotal CheckinTotal { get; internal set; }
         public UtBadge[] Badges { get; internal set; }
-        public dynamic FoursquareDetails { get; internal set; }
-        public dynamic HereNow { get; internal set; }
+        public UtCheckinFoursquareDetails FoursquareDetails { get; internal set; }
+        public UtHereNow[] HereNow { get; internal set; }
         public bool IsTooFarAway { get; internal set; }
         public UtCheckinBeerDetails BeerDetails { get; internal set; }
         public UtPromotion[] Promotions { get; internal set; }
