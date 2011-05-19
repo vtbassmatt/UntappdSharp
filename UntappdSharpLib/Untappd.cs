@@ -23,100 +23,128 @@ namespace UntappdSharp
 
         public Untappd (string ApiKey = null)
         {
-            List<string> PostOps = new List<string>()
-            {
-                "checkin_test",
-                "checkin",
-            };
-            _Client = new RestClient(EnvironmentDetails.EndpointFormat, RestService.Json, PostOps);
-
-            if(null == ApiKey)
-            {
-                _Client.apiKey = EnvironmentDetails.ApiKey;
-            } else {
-                _Client.apiKey = ApiKey;
+            try {
+                List<string> PostOps = new List<string>()
+                {
+                    "checkin_test",
+                    "checkin",
+                };
+                _Client = new RestClient(EnvironmentDetails.EndpointFormat, RestService.Json, PostOps);
+    
+                if(null == ApiKey)
+                {
+                    _Client.apiKey = EnvironmentDetails.ApiKey;
+                } else {
+                    _Client.apiKey = ApiKey;
+                }
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
         }
 
         #region IUntappd implementation
         public void SetCredentials (string Username, string Password)
         {
-            _Client = _Client.WithBasicAuth(Username, MD5(Password));
+            try {
+                _Client = _Client.WithBasicAuth(Username, MD5(Password));
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
+            }
         }
 
         public UtUser User (string Username = "")
         {
-            dynamic args = new JsonObject();
-            args.user = Username;
+            try {
+                dynamic args = new JsonObject();
+                args.user = Username;
 
-            dynamic response = _Client.user(args);
-            if(null != response.Result.results)
-            {
-                dynamic user = response.Result.results.user;
+                dynamic response = _Client.user(args);
+                if(null != response.Result.results)
+                {
+                    dynamic user = response.Result.results.user;
 
-                return UtUser.FromDynamic(user);
+                    return UtUser.FromDynamic(user);
+                }
+
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
 
         public UtUserFeed UserFeed(string Username = null, int? Since = null, int? Offset =  null)
         {
-            dynamic args = new JsonObject();
-            args.user = Username;
-            args.since = Since;
-            args.offset = Offset;
-
-            dynamic response = _Client.user_feed(args);
-            if(null != response.Result.results)
-            {
-                return UtUserFeed.FromDynamic(response);
+            try {
+                dynamic args = new JsonObject();
+                args.user = Username;
+                args.since = Since;
+                args.offset = Offset;
+    
+                dynamic response = _Client.user_feed(args);
+                if(null != response.Result.results)
+                {
+                    return UtUserFeed.FromDynamic(response);
+                }
+    
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
 
         public UtBeer BeerInfo(int BeerId)
         {
-            dynamic args = new JsonObject();
-            args.bid = BeerId;
+            try {
+                dynamic args = new JsonObject();
+                args.bid = BeerId;
 
-            dynamic response = _Client.beer_info(args);
-            if(null != response.Result.results)
-            {
-                return UtBeer.FromDynamic(response.Result.results);
+                dynamic response = _Client.beer_info(args);
+                if(null != response.Result.results)
+                {
+                    return UtBeer.FromDynamic(response.Result.results);
+                }
+
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
 
         public UtBrewery BreweryInfo(int BreweryId)
         {
-            dynamic args = new JsonObject();
-            args.brewery_id = BreweryId;
-
-            dynamic response = _Client.brewery_info(args);
-            if(null != response.Result.results)
-            {
-                return UtBrewery.FromDynamic(response.Result.results);
+            try {
+                dynamic args = new JsonObject();
+                args.brewery_id = BreweryId;
+    
+                dynamic response = _Client.brewery_info(args);
+                if(null != response.Result.results)
+                {
+                    return UtBrewery.FromDynamic(response.Result.results);
+                }
+    
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
 
         public UtFriends Friends(string Username = null, int? Offset = null)
         {
-            dynamic args = new JsonObject();
-            args.user = Username;
-            args.offset = Offset;
-
-            dynamic response = _Client.friends(args);
-            if(null != response.Result.results)
-            {
-                return UtFriends.FromDynamic(response);
+            try {
+                dynamic args = new JsonObject();
+                args.user = Username;
+                args.offset = Offset;
+    
+                dynamic response = _Client.friends(args);
+                if(null != response.Result.results)
+                {
+                    return UtFriends.FromDynamic(response);
+                }
+    
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
 
         public UtCheckin Checkin(CheckinOptions Options)
@@ -138,42 +166,51 @@ namespace UntappdSharp
             // user_lat      : optional, but required if location given
             // user_lng      : optional, but required if location given
 
-            dynamic args = new JsonObject();
-            args.gmt_offset = GetGmtOffset(Options.Timezone);
-            args.bid = Options.BeerId;
-            args.foursquare_id = Options.FoursquareId;
-            args.user_lat = Options.UserLat;
-            args.user_lng = Options.UserLng;
-
-            dynamic response;
-            if(IsRealCheckin)
+            try
             {
-                response = _Client.checkin(args);
-            } else {
-                response = _Client.checkin_test(args);
+                dynamic args = new JsonObject();
+                args.gmt_offset = GetGmtOffset(Options.Timezone);
+                args.bid = Options.BeerId;
+                args.foursquare_id = Options.FoursquareId;
+                args.user_lat = Options.UserLat;
+                args.user_lng = Options.UserLng;
+    
+                dynamic response;
+                if(IsRealCheckin)
+                {
+                    response = _Client.checkin(args);
+                } else {
+                    response = _Client.checkin_test(args);
+                }
+                if(null != response.Result)
+                {
+                    return UtCheckin.FromDynamic(response.Result);
+                }
+    
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-            if(null != response.Result)
-            {
-                return UtCheckin.FromDynamic(response.Result);
-            }
-
-            return null;
         }
 
         public UtBeerSearch BeerSearch(string Q, bool SortByCount = false, int? Offset = null)
         {
-            dynamic args = new JsonObject();
-            args.q = Q;
-            if(SortByCount) { args.sort = "count"; }
-            if(null != Offset) { args.offset = Offset; }
-
-            dynamic response = _Client.beer_search(args);
-            if(null != response.Result.results)
-            {
-                return UtBeerSearch.FromDynamic(response.Result);
+            try {
+                dynamic args = new JsonObject();
+                args.q = Q;
+                if(SortByCount) { args.sort = "count"; }
+                if(null != Offset) { args.offset = Offset; }
+    
+                dynamic response = _Client.beer_search(args);
+                if(null != response.Result.results)
+                {
+                    return UtBeerSearch.FromDynamic(response.Result);
+                }
+    
+                return null;
+            } catch(Exception ex) {
+                throw new UntappdApiException(ex);
             }
-
-            return null;
         }
         #endregion
 

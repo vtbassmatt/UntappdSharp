@@ -58,6 +58,7 @@
     <Compile Include="UtObjects\UtBadge.cs" />
     <Compile Include="UtObjects\UtBeerSearch.cs" />
     <Compile Include="UtObjects\UtBeerSearchBeer.cs" />
+    <Compile Include="UntappdApiException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -31,7 +31,7 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace UntappdSharp.Tests
+namespace UntappdSharp.Tests.ConnectToServer
 {
 	[TestFixture()]
     public class AuthenticatedTests
@@ -60,7 +60,35 @@ namespace UntappdSharp.Tests
         [Test()]
         public void TestUserVtbassmatt ()
         {
+            UtUser user = u.User("vtbassmatt");
+            Assert.That(user.UserName, Is.EqualTo("vtbassmatt"));
+        }
+    }
+
+    [TestFixture()]
+    public class UnauthenticatedTests
+    {
+        private Untappd u;
+
+        [SetUp()]
+        public void Init()
+        {
+            string apiKey = TestSetup.LoadSecret("apikey");
+            u  = new Untappd(apiKey);
+        }
+
+        [Test()]
+        [ExpectedException(typeof(UntappdApiException))]
+        public void TestUser ()
+        {
             UtUser user = u.User();
+            Assert.That(user.UserName, Is.EqualTo("anything"));
+        }
+
+        [Test()]
+        public void TestUserVtbassmatt ()
+        {
+            UtUser user = u.User("vtbassmatt");
             Assert.That(user.UserName, Is.EqualTo("vtbassmatt"));
         }
     }
