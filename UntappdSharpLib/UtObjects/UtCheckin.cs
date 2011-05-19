@@ -25,9 +25,6 @@ namespace UntappdSharp
                 BeerDetails = UtCheckinBeerDetails.FromDynamic(From.beer_details),
                 IsTooFarAway = Coerce.ToBool(From.is_too_far_away),
                 FoursquareDetails = UtCheckinFoursquareDetails.FromDynamic(From.foursquare_details),
-
-                // TODO: figure out what these really return and deal with them
-                HereNow = From.here_now,
             };
 
             // checkins which include Foursquare data return differently than checkins which don't
