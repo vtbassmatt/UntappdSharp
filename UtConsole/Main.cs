@@ -69,9 +69,13 @@ namespace UtConsole
                     case "beer":
                         cmdBeer(tokens);
                         break;
+                    case "checkin_test":
+                        cmdCheckinTest(tokens);
+                        break;
                     case "help":
                         Console.WriteLine(@"Available commands are:
 beer <beerid>
+checkin_test <beerid>
 help
 exit");
                         break;
@@ -107,6 +111,40 @@ Count: TOTAL  UNIQUE   MONTH    WEEK    YOUR
     {4,8}{5,8}{6,8}{7,8}{8,8}",
                         info.BeerId,info.Name,info.BreweryId,info.Brewery,
                         info.TotalCount,info.UniqueCount,info.MonthlyCount,info.WeeklyCount,info.YourCount));
+                } catch(UntappdApiException ex) {
+                    Err("Untappd API exception:");
+                    Err(ex.Message);
+                    Err(ex.InnerException.Message);
+                    Err(ex.InnerException.StackTrace);
+                } catch(Exception ex) {
+                    Err("General exception:");
+                    Err(ex.Message);
+                    Err(ex.StackTrace);
+                }
+            } else {
+                Err("Expected one argument: <beerid> (integer)");
+            }
+        }
+
+        private static void cmdCheckinTest(string[] tokens)
+        {
+            if(tokens.Length >= 2)
+            {
+                try {
+                    int beerId = Int32.Parse(tokens[1]);
+                    CheckinOptions opt = new CheckinOptions();
+                    opt.BeerId = beerId;
+                    opt.Timezone = TimeZoneInfo.Local;
+                    UtCheckin chk = u.CheckinTest(opt);
+                    Console.WriteLine(string.Format(@"Checkin #{0}: {1}
+Beer #{2}: {3}
+Total checkins for this beer: {4}
+Total checkins for this beer this month: {5}
+Checked in at: {6} in {7}, {8}",
+                        chk.CheckinDetails.CheckinId, chk.CheckinDetails.Shout,
+                        chk.BeerDetails.BeerId, chk.BeerDetails.BeerName,
+                        chk.CheckinTotal.Beer, chk.CheckinTotal.BeerMonth,
+                        chk.FoursquareDetails.Name, chk.FoursquareDetails.City, chk.FoursquareDetails.State));
                 } catch(UntappdApiException ex) {
                     Err("Untappd API exception:");
                     Err(ex.Message);
