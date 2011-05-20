@@ -43,6 +43,7 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="CmdBeer.cs" />
     <Compile Include="UtConsole.cs" />
+    <Compile Include="CmdCheckinTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

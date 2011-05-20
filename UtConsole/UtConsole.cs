@@ -50,6 +50,7 @@ namespace UtConsole
 
             ICommand[] commandobjs = {
                 new CmdBeer(),
+                new CmdCheckinTest(),
             };
             CommandSet = new Dictionary<string, ICommand>(commandobjs.Length);
             foreach(var commandobj in commandobjs)
@@ -79,13 +80,9 @@ namespace UtConsole
                 {
                     case "exit":
                         continue;
-                    case "checkin_test":
-                        cmdCheckinTest(tokens);
-                        break;
                     case "help":
                         Console.WriteLine(string.Format("Available commands are:\n{0}",Usage));
                         Console.WriteLine(@"Additional commands are:
-checkin_test <beerid>
 help
 exit");
                         break;
@@ -111,40 +108,6 @@ exit");
         public static void Err(string ErrMessage)
         {
             Console.WriteLine("*** {0}", ErrMessage);
-        }
-
-        private static void cmdCheckinTest(string[] tokens)
-        {
-            if(tokens.Length >= 2)
-            {
-                try {
-                    int beerId = Int32.Parse(tokens[1]);
-                    CheckinOptions opt = new CheckinOptions();
-                    opt.BeerId = beerId;
-                    opt.Timezone = TimeZoneInfo.Local;
-                    UtCheckin chk = u.CheckinTest(opt);
-                    Console.WriteLine(string.Format(@"Checkin #{0}: {1}
-Beer #{2}: {3}
-Total checkins for this beer: {4}
-Total checkins for this beer this month: {5}
-Checked in at: {6} in {7}, {8}",
-                        chk.CheckinDetails.CheckinId, chk.CheckinDetails.Shout,
-                        chk.BeerDetails.BeerId, chk.BeerDetails.BeerName,
-                        chk.CheckinTotal.Beer, chk.CheckinTotal.BeerMonth,
-                        chk.FoursquareDetails.Name, chk.FoursquareDetails.City, chk.FoursquareDetails.State));
-                } catch(UntappdApiException ex) {
-                    Err("Untappd API exception:");
-                    Err(ex.Message);
-                    Err(ex.InnerException.Message);
-                    Err(ex.InnerException.StackTrace);
-                } catch(Exception ex) {
-                    Err("General exception:");
-                    Err(ex.Message);
-                    Err(ex.StackTrace);
-                }
-            } else {
-                Err("Expected one argument: <beerid> (integer)");
-            }
         }
 
         #region oldmain
