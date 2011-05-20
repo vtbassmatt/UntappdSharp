@@ -28,7 +28,7 @@
 using System;
 using UntappdSharp;
 
-namespace UtConsole
+namespace UntappdSharp.UtConsole
 {
     public interface ICommand
     {

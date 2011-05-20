@@ -31,7 +31,7 @@ using System.IO;
 using System.Collections.Generic;
 using UntappdSharp;
 
-namespace UtConsole
+namespace UntappdSharp.UtConsole
 {
     class UtConsole
     {
