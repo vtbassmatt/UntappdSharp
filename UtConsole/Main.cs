@@ -35,7 +35,95 @@ namespace UtConsole
 {
     class MainClass
     {
+        private static Untappd u;
         public static void Main (string[] args)
+        {
+            string command = "", line;
+            string[] tokens = null;
+
+            string apiKey = LoadSecret("apikey"),
+                   username = LoadSecret("username"),
+                   password = LoadSecret("password");
+
+            u = new Untappd(apiKey);
+            u.SetCredentials(username, password);
+
+            Console.WriteLine("Welcome to UtConsole.");
+
+            Prompt();
+            while(!command.Equals("exit"))
+            {
+                line = Console.ReadLine();
+                tokens  = line.Split(' ');
+                if(tokens.Length > 0)
+                {
+                    command = tokens[0];
+                } else {
+                   command = "";
+                }
+
+                switch(command)
+                {
+                    case "exit":
+                        continue;
+                    case "beer":
+                        cmdBeer(tokens);
+                        break;
+                    case "help":
+                        Console.WriteLine(@"Available commands are:
+beer <beerid>
+help
+exit");
+                        break;
+                    default:
+                        Err("Command not recognized, try 'help' for help");
+                        break;
+                }
+                Prompt();
+            }
+            Console.WriteLine("Thank you for flying UtConsole, we hope to see you on a future journey.");
+        }
+
+        private static void Prompt()
+        {
+            Console.Write("> ");
+        }
+
+        private static void Err(string ErrMessage)
+        {
+            Console.WriteLine("*** {0}", ErrMessage);
+        }
+
+        private static void cmdBeer(string[] tokens)
+        {
+            if(tokens.Length >= 2)
+            {
+                try {
+                    int beerId = Int32.Parse(tokens[1]);
+                    UtBeer info = u.BeerInfo(beerId);
+                    Console.WriteLine(string.Format(@"Beer #{0}: {1}
+Brewery #{2}: {3}
+Count: TOTAL  UNIQUE   MONTH    WEEK    YOUR
+    {4,8}{5,8}{6,8}{7,8}{8,8}",
+                        info.BeerId,info.Name,info.BreweryId,info.Brewery,
+                        info.TotalCount,info.UniqueCount,info.MonthlyCount,info.WeeklyCount,info.YourCount));
+                } catch(UntappdApiException ex) {
+                    Err("Untappd API exception:");
+                    Err(ex.Message);
+                    Err(ex.InnerException.Message);
+                    Err(ex.InnerException.StackTrace);
+                } catch(Exception ex) {
+                    Err("General exception:");
+                    Err(ex.Message);
+                    Err(ex.StackTrace);
+                }
+            } else {
+                Err("Expected one argument: <beerid> (integer)");
+            }
+        }
+
+        #region oldmain
+        private static void OldMain (string[] args)
         {
             Console.WriteLine ("Hello World!");
 
@@ -104,6 +192,7 @@ namespace UtConsole
 
             Console.Read();
         }
+        #endregion
 
         private static Dictionary<string,string> _Secrets;
         private static string LoadSecret(string Index)
