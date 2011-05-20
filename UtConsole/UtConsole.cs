@@ -33,9 +33,12 @@ using UntappdSharp;
 
 namespace UtConsole
 {
-    class MainClass
+    class UtConsole
     {
         private static Untappd u;
+        private static Dictionary<string,ICommand> CommandSet;
+        private static string Usage;
+
         public static void Main (string[] args)
         {
             string command = "", line;
@@ -44,6 +47,16 @@ namespace UtConsole
             string apiKey = LoadSecret("apikey"),
                    username = LoadSecret("username"),
                    password = LoadSecret("password");
+
+            ICommand[] commandobjs = {
+                new CmdBeer(),
+            };
+            CommandSet = new Dictionary<string, ICommand>(commandobjs.Length);
+            foreach(var commandobj in commandobjs)
+            {
+                CommandSet.Add(commandobj.Verb(), commandobj);
+                Usage += string.Format("{0}\n", commandobj.Usage());
+            }
 
             u = new Untappd(apiKey);
             u.SetCredentials(username, password);
@@ -66,21 +79,23 @@ namespace UtConsole
                 {
                     case "exit":
                         continue;
-                    case "beer":
-                        cmdBeer(tokens);
-                        break;
                     case "checkin_test":
                         cmdCheckinTest(tokens);
                         break;
                     case "help":
-                        Console.WriteLine(@"Available commands are:
-beer <beerid>
+                        Console.WriteLine(string.Format("Available commands are:\n{0}",Usage));
+                        Console.WriteLine(@"Additional commands are:
 checkin_test <beerid>
 help
 exit");
                         break;
                     default:
-                        Err("Command not recognized, try 'help' for help");
+                        if(CommandSet.ContainsKey(command))
+                        {
+                            CommandSet[command].Run(u, tokens);
+                        } else {
+                            Err("Command not recognized, try 'help' for help");
+                        }
                         break;
                 }
                 Prompt();
@@ -93,37 +108,9 @@ exit");
             Console.Write("> ");
         }
 
-        private static void Err(string ErrMessage)
+        public static void Err(string ErrMessage)
         {
             Console.WriteLine("*** {0}", ErrMessage);
-        }
-
-        private static void cmdBeer(string[] tokens)
-        {
-            if(tokens.Length >= 2)
-            {
-                try {
-                    int beerId = Int32.Parse(tokens[1]);
-                    UtBeer info = u.BeerInfo(beerId);
-                    Console.WriteLine(string.Format(@"Beer #{0}: {1}
-Brewery #{2}: {3}
-Count: TOTAL  UNIQUE   MONTH    WEEK    YOUR
-    {4,8}{5,8}{6,8}{7,8}{8,8}",
-                        info.BeerId,info.Name,info.BreweryId,info.Brewery,
-                        info.TotalCount,info.UniqueCount,info.MonthlyCount,info.WeeklyCount,info.YourCount));
-                } catch(UntappdApiException ex) {
-                    Err("Untappd API exception:");
-                    Err(ex.Message);
-                    Err(ex.InnerException.Message);
-                    Err(ex.InnerException.StackTrace);
-                } catch(Exception ex) {
-                    Err("General exception:");
-                    Err(ex.Message);
-                    Err(ex.StackTrace);
-                }
-            } else {
-                Err("Expected one argument: <beerid> (integer)");
-            }
         }
 
         private static void cmdCheckinTest(string[] tokens)
