@@ -29,6 +29,7 @@ using System;
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 using UntappdSharp;
 
 namespace UntappdSharp.UtConsole
@@ -48,17 +49,15 @@ namespace UntappdSharp.UtConsole
                    username = LoadSecret("username"),
                    password = LoadSecret("password");
 
-            ICommand[] commandobjs = {
-                new CmdBeer(),
-                new CmdBeerSearch(),
-                new CmdCheckinTest(),
-            };
+            ICommand[] commandobjs = LocateCommands();
+            Console.WriteLine("Found {0} commands...", commandobjs.Length);
             CommandSet = new Dictionary<string, ICommand>(commandobjs.Length);
             foreach(var commandobj in commandobjs)
             {
                 CommandSet.Add(commandobj.Verb(), commandobj);
                 Usage += string.Format("{0}\n", commandobj.Usage());
             }
+            Console.WriteLine("...loaded {0} commands.", CommandSet.Count);
 
             u = new Untappd(apiKey);
             u.SetCredentials(username, password);
@@ -99,6 +98,29 @@ exit");
                 Prompt();
             }
             Console.WriteLine("Thank you for flying UtConsole, we hope to see you on a future journey.");
+        }
+
+        private static ICommand[] LocateCommands()
+        {
+            List<ICommand> cmds = new List<ICommand>();
+
+            // load all the types in this assembly
+            Assembly assm = Assembly.GetExecutingAssembly();
+            Type[] types = assm.GetTypes();
+            foreach(var type in types)
+            {
+                // if the type has the ICommand interface, add it to the pile
+                if(null != type.GetInterface("ICommand"))
+                {
+                    ICommand cmd = (ICommand)assm.CreateInstance(type.FullName);
+                    cmds.Add(cmd);
+                }
+            }
+
+            // alphabetical looks nicer - sort by verb
+            cmds.Sort((x, y) => x.Verb().CompareTo(y.Verb()));
+
+            return cmds.ToArray();
         }
 
         private static void Prompt()
