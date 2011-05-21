@@ -2,7 +2,7 @@ This is a .Net library for interacting with the Untappd API.
 
 It now includes a very simple REPL shell.  Not all commands are implemented yet.
 
-In order to use the enclosed console test app or the unit tests, you need to place a file in the project root called "secrets.txt".  A post-build action moves this file next to the binary.  The file must contain 3 lines:
+In order to use the enclosed console test app or the unit tests, you need to place a file in the project root called "secrets.txt".  (With MonoDevelop, a post-build action moves this file next to the binary.  On Windows, you'll need to copy this file to sit next to the binaries as well.)  The file must contain 3 lines:
 
 apikey|<your Untappd API key>
 username|<username of the Untappd user you're logging in as>

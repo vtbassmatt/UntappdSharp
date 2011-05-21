@@ -217,7 +217,7 @@ exit");
                     string[] items = line.Split(new char[] {'|'}, 2);
                     if(2 == items.Length)
                     {
-                        _Secrets.Add(items[0], items[1]);
+                        _Secrets.Add(items[0], items[1].TrimEnd());
                     }
                 }
             }
