@@ -44,6 +44,7 @@
     <Compile Include="CmdBeer.cs" />
     <Compile Include="UtConsole.cs" />
     <Compile Include="CmdCheckinTest.cs" />
+    <Compile Include="CmdBeerSearch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -50,6 +50,7 @@ namespace UntappdSharp.UtConsole
 
             ICommand[] commandobjs = {
                 new CmdBeer(),
+                new CmdBeerSearch(),
                 new CmdCheckinTest(),
             };
             CommandSet = new Dictionary<string, ICommand>(commandobjs.Length);
